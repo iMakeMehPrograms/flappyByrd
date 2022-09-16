@@ -6,4 +6,6 @@ void(* starter)() = start;
 
 void start() {
 
+    startingAnimation();
+
 }

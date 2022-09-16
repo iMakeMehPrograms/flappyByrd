@@ -23,11 +23,11 @@ void ticker(std::vector<void (*)()> funcs) {
 
     while(!end && tcount < TIMEOUT) {
 
-        if ((tcount % 3000) == 0) {
+        if ((tcount % 3000) == 0 && tcount != 0) {
 
-            tempstring = "5 minutes passed, # of minutes: " + (tcount / 600);
-
-            log(tempstring);
+            log("5 minutes have passed, # of minutes: ");
+            log(tcount / 600);
+            log("\n");
 
         }
 
@@ -87,7 +87,7 @@ int main() {
 
     std::thread tickthread(ticker, tickCalls);
 
-    log("Tickthread init, waiting for join, will occur in ~1 hour");
+    log("Tickthread init, waiting for join, will occur in ~1 hour\n");
 
     tickthread.join();
 

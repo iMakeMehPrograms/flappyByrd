@@ -7,3 +7,5 @@ extern void start();
 extern void render();
 
 extern Screen output;
+
+void startingAnimation();

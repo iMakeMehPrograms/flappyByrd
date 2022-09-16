@@ -10,7 +10,7 @@ Animation::Animation(std::vector<std::string> anim, std::chrono::milliseconds tb
     {
         dlay(1, frames, timeBeetweenFrames, defaultScreen);
     }
-    void Animation::Play(int repeatTimes) // play con repeat
+    void Animation::Play(int repeatTimes) /// play con repeat
     {
         dlay(repeatTimes, frames, timeBeetweenFrames, defaultScreen);
     }
