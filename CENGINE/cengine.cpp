@@ -27,7 +27,8 @@ void ticker(std::vector<void (*)()> funcs) {
             funcs[i]();
         }
 
-        //std::this_thread::sleep_for(std::chrono::duration_cast<std::chrono::milliseconds>(TICKRATE));
+        std::cout << "Tick\n";
+        std::this_thread::sleep_for(std::chrono::milliseconds(TICKRATE));
         tcount++;
 
     }
