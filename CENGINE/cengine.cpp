@@ -42,7 +42,9 @@ void ticker(std::vector<void (*)()> funcs) {
 
     }
 
-
+    if(!end) {
+        end = true;
+    }
 
 }
 
@@ -58,7 +60,7 @@ template <typename T> void log(T data) {
 
         if(debugout.is_open()) {
 
-            log("Successfully reopened debugout");
+            debugout << "Successfully reopened debugout\n" << std::flush;
             debugout << data << std::flush;
 
         } else {
@@ -72,13 +74,21 @@ template <typename T> void log(T data) {
 
 }
 
-int main() {
+int main()
+{
 
     if(starter == nullptr) {
         std::cerr << "\a Null pointer exception in the starter function! AUGHHHHHH! CLOSING!\n";
         log("Null pointer exception in the starter function! AUGHHHHHH! CLOSING!\n");
         return 1;
-    } 
+    }
+
+    if(inputer == nullptr)
+    {
+        std::cerr << "\a Null pointer exception in the inputer function! AUGHHHHHH! CLOSING!\n";
+        log("Null pointer exception in the inputer function! AUGHHHHHH! CLOSING!\n");
+        return 1;
+    }
 
     log("Test log to open file\n"); 
 
@@ -87,9 +97,21 @@ int main() {
 
     std::thread tickthread(ticker, tickCalls);
 
-    log("Tickthread init, waiting for join, will occur in ~1 hour\n");
+    log("Tickthread init, waiting for join, will occur in ~1 hour if not ended\n");
+
+    std::thread iothread(inputer);
+
+    log("Iothread init, waiting for join, will occur when tickthread joins\n");
 
     tickthread.join();
+
+    log("Tickthread joined\n");
+
+    iothread.join();
+
+    log("Iothread joined\n");
+
+    log("Ending process, closing.\n");
 
     return 0;
 }
