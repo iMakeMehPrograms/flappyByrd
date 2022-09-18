@@ -14,7 +14,7 @@ void inputLoop() {
 
         std::cin >> ans;
         std::cout << "                                              \r" << std::flush;
-        if(ans.compare("quit") == 0) {
+        if( (ans.compare("quit")) == 0) {
             end = true;
         }
 
@@ -82,7 +82,7 @@ void startingAnimation()
 
     ans = "ignore";
 
-    if(ans.compare("ignore") != 0) {
+    if( (ans.compare("ignore")) != 0) {
         return;
     }
 
