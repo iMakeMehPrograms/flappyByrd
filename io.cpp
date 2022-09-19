@@ -2,6 +2,8 @@
 
 Screen output("output.txt");
 
+std::mutex renlock; // mutex so no render weirdness
+
 std::string ans = "";
 
 int cheight = 5;
@@ -12,12 +14,15 @@ void inputLoop() {
 
         std::cin >> ans;
         std::cout << "                                              \r" << std::flush;
-        if( (ans.compare("quit")) == 0) {
+        if( (ans.compare("quit")) == 0) { // quit without control c
             end = true;
+        }
+        if( (instate.compare("game")) == 0) { // if cin ever returns, then it means that anything was entered, so jump
+            jframe = 2;
         }
 
     }
-    std::this_thread::sleep_for(std::chrono::milliseconds(TICKRATE)); // give ticker time to end first
+    std::this_thread::sleep_for(std::chrono::milliseconds(TICKRATE * 2)); // give ticker time to end first (two frames if the ticker is caught at a bad time)
 }
 
 std::vector<std::string> startingAnim = {
@@ -46,13 +51,19 @@ std::vector<std::string> startingAnim = {
 
 std::vector<std::deque<std::string>> rengrid = {};
 
-std::vector<char> angrid = {};
-
 Animation sanim(startingAnim, fpsToTbf(1), output);
+
+void shift() {
+
+    // shift rengrid
+
+    // update angrid
+
+}
 
 void render() {
 
-    // figure it out
+    // for loop over rengrid
 
 
 }
@@ -76,7 +87,6 @@ void generate(bool start) {
                 
             } 
             rengrid[i].push_back(temp);
-            std::this_thread::sleep_for(std::chrono::milliseconds(50));
 
         }
     }
@@ -85,10 +95,45 @@ void generate(bool start) {
 
 }
 
+void gameover()
+{
+
+    std::string etemp{
+        "   _____                         ____                 _ \n"
+        "  / ____|                       / __ \\               | |\n"
+        " | |  __  __ _ _ __ ___   ___  | |  | |_   _____ _ __| |\n"
+        " | | |_ |/ _` | \'_ ` _ \\ / _ \\ | |  | \\ \\ / / _ \\ \'__| |\n"
+        " | |__| | (_| | | | | | |  __/ | |__| |\\ V /  __/ |  |_|\n"
+        "  \\_____|\\__,_|_| |_| |_|\\___|  \\____/  \\_/ \\___|_|  (_)\n"
+        "-Better luck next time! Rerun the program to play again!-\n"
+    };
+
+    output.Display(etemp); 
+
+}
+
 void startingAnimation() 
 {
 
-    sanim.Play(3);
+    std::thread load([](int rt) { // lambda to wrap func
+
+        renlock.lock(); // probably the only time this mutex is used
+
+        sanim.Play(rt);
+
+        renlock.unlock();
+
+    }, 3);
+
+    log("Game: Loading and generating vector-deque thing\n");
+
+    generate(true); // generate while anim
+
+    log("Game: Generated vector-deque, now waiting for anim join\n");
+
+    load.join(); // wait for join after
+
+    log("Game: Anim joined");
 
     output.Display(startingAnim[0]);
 
@@ -110,7 +155,7 @@ void startingAnimation()
         scount++;
     }
 
-    generate(true);
+    instate = "game";
 
     //return (duh)
 

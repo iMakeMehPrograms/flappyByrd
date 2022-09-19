@@ -2,6 +2,8 @@
 
 bool end = false;
 
+int tickcount = 0;
+
 std::string tempstring;
 
 std::ofstream debugout("debug.txt", std::ofstream::out | std::ofstream:: trunc);
@@ -19,9 +21,9 @@ void ticker(std::vector<void (*)()> funcs) {
 
     }
 
-    int tcount = 0; 
+    tickcount = 0; // reset to 0
 
-    while(!end && tcount < TIMEOUT) {
+    while(!end && tickcount < TIMEOUT) {
 
         if ((tcount % 3000) == 0 && tcount != 0) {
 
@@ -46,6 +48,11 @@ void ticker(std::vector<void (*)()> funcs) {
         end = true;
     }
 
+}
+
+int getTick()
+{ // use instead of direct acess so timeout check doesn't get fucked up
+    return tickcount;
 }
 
 template <typename T> void log(T data) {
@@ -90,6 +97,12 @@ int main()
         return 1;
     }
 
+    if(ender == nullptr) {
+        std::cerr << "\a Null pointer exception in the ender function! AUGHHHHHH! CLOSING!\n";
+        log("Null pointer exception in the ender function! AUGHHHHHH! CLOSING!\n");
+        return 1;
+    }
+
     log("Test log to open file\n"); 
 
     starter();
@@ -111,7 +124,11 @@ int main()
 
     log("Iothread joined\n");
 
-    log("Ending process, closing.\n");
+    log("Running ender function...\n");
+
+    ender();
+
+    log("Ender function done, closing procces aka quiting.");
 
     return 0;
 }

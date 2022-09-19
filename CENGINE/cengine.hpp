@@ -13,8 +13,12 @@ extern void (*starter)();
 
 extern void (* inputer)();
 
+extern void (* ender)();
+
 extern std::ofstream debugout;
 
 extern bool end;
 
 template <typename T> extern void log(T data);
+
+int getTick();
