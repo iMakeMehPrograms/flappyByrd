@@ -4,10 +4,6 @@ Screen output("output.txt");
 
 std::string ans = "";
 
-int width = 100;
-
-int height = 20;
-
 void inputLoop() {
 
     while(!end) {
@@ -46,7 +42,7 @@ std::vector<std::string> startingAnim = {
 
 };
 
-std::vector<std::vector<char>> rengrid = {};
+std::vector<std::deque<std::string>> rengrid = {};
 
 Animation sanim(startingAnim, fpsToTbf(1), output);
 
@@ -57,11 +53,22 @@ void render() {
 
 }
 
-void coolanim() {
+void generate() {
 
-    for(int i = 0; i < height; i++) {
-        for(int e = 0; e < width; i++) {
-            
+    std::string temp = "~~";
+
+    for(int i = 0; i < HEIGHT; i++) {
+        
+        rengrid.push_back({});
+
+        for(int e = 0; e < WIDTH; e++) {
+
+            if(i == SHEIGHT && e == PWIDTH) {
+                rengrid[i].push_back("#>");
+            } 
+            rengrid[i].push_back(temp);
+            std::this_thread::sleep_for(std::chrono::milliseconds(50));
+
         }
     }
 
@@ -91,6 +98,8 @@ void startingAnimation()
     while(ans.compare("ignore") != 0 && scount < 10) {
         scount++;
     }
+
+    generate();
 
     //return (duh)
 
