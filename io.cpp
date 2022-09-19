@@ -4,6 +4,8 @@ Screen output("output.txt");
 
 std::string ans = "";
 
+int cheight = 5;
+
 void inputLoop() {
 
     while(!end) {
@@ -44,6 +46,8 @@ std::vector<std::string> startingAnim = {
 
 std::vector<std::deque<std::string>> rengrid = {};
 
+std::vector<char> angrid = {};
+
 Animation sanim(startingAnim, fpsToTbf(1), output);
 
 void render() {
@@ -53,7 +57,7 @@ void render() {
 
 }
 
-void generate() {
+void generate(bool start) {
 
     std::string temp = "~~";
 
@@ -63,14 +67,21 @@ void generate() {
 
         for(int e = 0; e < WIDTH; e++) {
 
-            if(i == SHEIGHT && e == PWIDTH) {
-                rengrid[i].push_back("#>");
+            if(e == PWIDTH) {
+                if(i == SHEIGHT && start) {
+                    rengrid[i].push_back("#>");
+                } else if (i == cheight) {
+                    rengrid[i].push_back("#>");
+                }
+                
             } 
             rengrid[i].push_back(temp);
             std::this_thread::sleep_for(std::chrono::milliseconds(50));
 
         }
     }
+
+
 
 }
 
@@ -99,7 +110,7 @@ void startingAnimation()
         scount++;
     }
 
-    generate();
+    generate(true);
 
     //return (duh)
 

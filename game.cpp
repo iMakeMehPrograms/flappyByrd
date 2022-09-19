@@ -1,6 +1,6 @@
 #include "byrd.hpp"
 
-std::vector<void (*)()> tickCalls = {render};
+std::vector<void (*)()> tickCalls = {physcal, detect, addpipe, render}; // order is first -> last
 
 void (*starter)() = start;
 
@@ -11,4 +11,20 @@ void start()
     
     startingAnimation();
     
+}
+
+void physcal() {
+
+
+
+}
+
+void detect() {
+
+
+
+}
+
+void addpipe() {
+
 }

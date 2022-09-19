@@ -25,3 +25,5 @@ extern std::string ans;
 extern std::vector<std::deque<std::string>> rengrid;
 
 extern std::vector<char> angrid;
+
+extern int cheight;
