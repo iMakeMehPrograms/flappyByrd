@@ -31,7 +31,8 @@ std::vector<std::string> startingAnim = {
     " | | | | (_| | |_) | |_) | |_| | |_) | |_| | | | (_| |\n"
     " |_| |_|\\__,_| .__/| .__/ \\__, |____/ \\__, |_|  \\__,_|\n"
     "             |_|   |_|     __/ |       __/ |          \n"
-    "                          |___/       |___/           \n",
+    "                          |___/       |___/           \n"
+    "-Loading- Good things come to those who wait -Loading-\n",
 
     "   __ _                         ____                _ \n"
     "  / _| |                       |  _ \\              | |\n"
@@ -41,6 +42,7 @@ std::vector<std::string> startingAnim = {
     " |_| |_|\\__,_| .__/| .__/ \\__, |____/ \\__, |_|  \\__,_|\n"
     "             | |   | |      _/ |        _/ |          \n"
     "             |_|   |_|     |__/        |__/           \n"
+    "-Loading- Good things come to those who wait -Loading-\n"
 
 };
 
@@ -75,6 +77,8 @@ void startingAnimation()
     std::string temp{
         "flappyByrd!\n"
         "First use of the cbyrd engine! (made by me)\n"
+        "Tips: say \"quit\" (all lowercase and no spaces) to, well... quit\n"
+        "Also don't ever say \"ignore\"\n, it will be well... ignored\n"
         "Enter anything into the terminal to start!\n"
     };
 
@@ -82,10 +86,12 @@ void startingAnimation()
 
     ans = "ignore";
 
-    if( (ans.compare("ignore")) != 0) {
-        return;
+    int scount = 0;
+
+    while(ans.compare("ignore") != 0 && scount < 10) {
+        scount++;
     }
 
-
+    //return (duh)
 
 }

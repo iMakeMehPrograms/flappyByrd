@@ -1,3 +1,6 @@
 flappyByrd!
 First use of the cbyrd engine! (made by me)
+Tips: say "quit" (all lowercase and no spaces) to, well... quit
+Also don't ever say "ignore"
+, it will be well... ignored
 Enter anything into the terminal to start!
