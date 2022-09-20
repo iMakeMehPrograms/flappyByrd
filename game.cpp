@@ -6,7 +6,7 @@ int jframe = 0;
 
 std::string instate = "start";
 
-std::vector<void (*)()> tickCalls = {physcal, detect, shift, render}; // order is first -> last
+std::vector<void (*)()> tickCalls = {physcal, shift, detect, render}; // order is first -> last
 
 void (*starter)() = start;
 

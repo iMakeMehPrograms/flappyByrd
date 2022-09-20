@@ -1,7 +1,6 @@
 Test log to open file
-Starter func ran, starting tickthread.
+Game: Loading and generating vector-deque thing
+Game: Generated vector-deque, now waiting for anim join
+Game: Anim joinedStarter func ran, starting tickthread.
 Tickthread init, waiting for join, will occur in ~1 hour if not ended
 Iothread init, waiting for join, will occur when tickthread joins
-Tickthread joined
-Iothread joined
-Ending process, closing.
