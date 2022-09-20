@@ -165,7 +165,7 @@ void startingAnimation()
 
     load.join(); // wait for join after
 
-    log("Game: Anim joined");
+    log("Game: Anim joined\n");
 
     output.Display(startingAnim[0]);
 
