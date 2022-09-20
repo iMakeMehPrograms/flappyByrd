@@ -13,6 +13,8 @@ public:
     Screen(std::string nm);
     /// Display a frame into the Screen
     void Display(std::string frame);
+    /// Add the str to the Screen
+    void DisplayAdd(std::string frame);
     /// the name of the file to use
     std::string name;
 /*

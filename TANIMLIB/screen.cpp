@@ -12,3 +12,14 @@ void Screen::Display(std::string frame) { // display one frame
         display.close();
     }
 }
+
+void Screen::DisplayAdd(std::string frame)
+{ // display one frame
+    std::ofstream display;
+    display.open(name, std::fstream::app | std::fstream::out);
+    if (display.is_open())
+    {
+        display << frame << std::flush;
+        display.close();
+    }
+}

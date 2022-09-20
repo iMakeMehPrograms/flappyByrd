@@ -6,7 +6,7 @@ int jframe = 0;
 
 std::string instate = "start";
 
-std::vector<void (*)()> tickCalls = {physcal, detect, addpipe, render}; // order is first -> last
+std::vector<void (*)()> tickCalls = {physcal, detect, shift, render}; // order is first -> last
 
 void (*starter)() = start;
 
@@ -14,7 +14,7 @@ void(* inputer)() = inputLoop;
 
 void(* ender)() = gameover;
 
-std::vector<char> angrid = {};
+std::deque<char> angrid = {};
 
 void start()
 {
@@ -29,7 +29,7 @@ void physcal() {
 
         yforce = 1; // add one to yforce
 
-        jframe - 1; // minus one to jframe
+        jframe--; // minus one to jframe
 
     } else { // else pull down
 

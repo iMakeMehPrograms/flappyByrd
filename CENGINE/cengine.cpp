@@ -25,10 +25,10 @@ void ticker(std::vector<void (*)()> funcs) {
 
     while(!end && tickcount < TIMEOUT) {
 
-        if ((tcount % 3000) == 0 && tcount != 0) {
+        if ((tickcount % 3000) == 0 && tickcount != 0) {
 
             log("5 minutes have passed, # of minutes: ");
-            log(tcount / 600);
+            log(tickcount / 600);
             log("\n");
 
         }
@@ -40,7 +40,7 @@ void ticker(std::vector<void (*)()> funcs) {
 
         //std::cout << "Tick\n";
         std::this_thread::sleep_for(std::chrono::milliseconds(TICKRATE));
-        tcount++;
+        tickcount++;
 
     }
 

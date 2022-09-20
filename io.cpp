@@ -57,14 +57,39 @@ void shift() {
 
     // shift rengrid
 
+    if( (getTick() % 5) == 0) {
+        std::vector<std::string> pipe = addpipe;
+    } else {
+        std::vector<std::string> pipe = NULL;
+    }
+
+    for(int i = 0; i < rengrid.size; i++) {
+        rengrid[i].pop_front();
+        if(pipe == NULL) {
+            rengrid[i].push_back("~~");
+        }
+    }
+
     // update angrid
+    for (int e = 0; e < rengrid.size; e++)
+    {
+        angrid.push_front();
+    }
+
+    rengrid[cheight][PWIDTH] = "#>"; // angrid before this because of how detect works
+    rengrid[cheight][PWIDTH - 1] = "~~";
 
 }
 
 void render() {
 
     // for loop over rengrid
-
+    for(int i = 0; i < rengrid.size; i++) {
+        for(int e = 0; e < rengrid[i].size; e++) {
+            output.DisplayAdd(rengrid[i][e]);
+        }
+        output.DisplayAdd("\n");
+    }
 
 }
 
@@ -73,8 +98,12 @@ void generate(bool start) {
     std::string temp = "~~";
 
     for(int i = 0; i < HEIGHT; i++) {
+
+        if(start) {
         
         rengrid.push_back({});
+
+        }
 
         for(int e = 0; e < WIDTH; e++) {
 
