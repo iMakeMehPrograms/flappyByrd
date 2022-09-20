@@ -14,7 +14,7 @@ void(* inputer)() = inputLoop;
 
 void(* ender)() = gameover;
 
-std::deque<char> angrid = {};
+std::deque<std::string> angrid = {};
 
 void start()
 {
@@ -51,7 +51,9 @@ void detect() {
 
 }
 
-void addpipe() {
+std::vector<std::string> addpipe() {
+
+    std::vector<std::string> outvec;
 
     // no idea how I'll do this
 
@@ -60,5 +62,11 @@ void addpipe() {
     // rand for height, 3 tall opening, shift and detect will move and detect it. simple!
 
     // also modulus the tickcount with getTick so that it isn't a tunnel of pipes. maybe every 5 columns?
+
+    for(int i = 0; i < HEIGHT; i++) {
+        outvec.push_back("~~");
+    } 
+
+    return outvec;
 
 }

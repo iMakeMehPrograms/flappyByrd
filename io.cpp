@@ -56,24 +56,27 @@ Animation sanim(startingAnim, fpsToTbf(1), output);
 void shift() {
 
     // shift rengrid
+    std::vector<std::string> pipe;
 
     if( (getTick() % 5) == 0) {
-        std::vector<std::string> pipe = addpipe;
+        pipe = addpipe();
     } else {
-        std::vector<std::string> pipe = NULL;
+        pipe = {};
     }
 
-    for(int i = 0; i < rengrid.size; i++) {
+    for(int i = 0; i < (int)rengrid.size(); i++) {
         rengrid[i].pop_front();
-        if(pipe == NULL) {
+        if(pipe.size() == 0) {
             rengrid[i].push_back("~~");
+        } else {
+            rengrid[i].push_back(pipe[i]);
         }
     }
 
     // update angrid
-    for (int e = 0; e < rengrid.size; e++)
+    for (int e = 0; e < (int)rengrid.size(); e++)
     {
-        angrid.push_front();
+        angrid.push_front(rengrid[e][PWIDTH + 1]);
     }
 
     rengrid[cheight][PWIDTH] = "#>"; // angrid before this because of how detect works
@@ -84,8 +87,8 @@ void shift() {
 void render() {
 
     // for loop over rengrid
-    for(int i = 0; i < rengrid.size; i++) {
-        for(int e = 0; e < rengrid[i].size; e++) {
+    for(int i = 0; i < (int)rengrid.size(); i++) {
+        for(int e = 0; e < (int)rengrid[i].size(); e++) {
             output.DisplayAdd(rengrid[i][e]);
         }
         output.DisplayAdd("\n");

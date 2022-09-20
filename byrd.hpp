@@ -25,7 +25,7 @@ extern std::string ans;
 
 extern std::vector<std::deque<std::string>> rengrid;
 
-extern std::deque<char> angrid;
+extern std::deque<std::string> angrid;
 
 extern int cheight;
 
@@ -39,6 +39,6 @@ void physcal();
 
 void detect();
 
-void addpipe();
+std::vector<std::string> addpipe();
 
 void shift();
