@@ -56,21 +56,15 @@ Animation sanim(startingAnim, fpsToTbf(1), output);
 void shift() {
 
     // shift rengrid
-    std::vector<std::string> pipe;
+    std::vector<std::string> pipe = addpipe(false);
 
     if( (getTick() % 5) == 0) {
-        pipe = addpipe();
-    } else {
-        pipe = {};
+        pipe = addpipe(true);
     }
 
     for(int i = 0; i < (int)rengrid.size(); i++) {
         rengrid[i].pop_front();
-        if(pipe.size() == 0) {
-            rengrid[i].push_back("~~");
-        } else {
-            rengrid[i].push_back(pipe[i]);
-        }
+        rengrid[i].push_back(pipe[i]);
     }
 
     // update angrid
@@ -87,11 +81,15 @@ void shift() {
 void render() {
 
     // for loop over rengrid
+
+    std::string tempout;
+
     for(int i = 0; i < (int)rengrid.size(); i++) {
         for(int e = 0; e < (int)rengrid[i].size(); e++) {
-            output.DisplayAdd(rengrid[i][e]);
+            tempout.push_back(rengrid[i][e][0]); // uhh bad code ahhh
+            tempout.push_back(rengrid[i][e][1]);
         }
-        output.DisplayAdd("\n");
+        tempout.push_back('\n');
     }
 
 }
@@ -181,11 +179,7 @@ void startingAnimation()
 
     ans = "ignore";
 
-    int scount = 0;
-
-    while(ans.compare("ignore") != 0 && scount < 10) {
-        scount++;
-    }
+    while(ans.compare("ignore") != 0) {} // stall
 
     instate = "game";
 

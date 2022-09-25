@@ -1,7 +1,7 @@
 #!/bin/sh 
 set -e
 set -x
-g++ -std=c++20 -ggdb -Wall -Wextra -Werror -pedantic \
+g++ -std=c++20 -g -Wall -Wextra -Werror -pedantic \
     game.cpp io.cpp \
     CENGINE/cengine.cpp \
     TANIMLIB/animation.cpp \

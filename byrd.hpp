@@ -39,6 +39,6 @@ void physcal();
 
 void detect();
 
-std::vector<std::string> addpipe();
+std::vector<std::string> addpipe(bool attime);
 
 void shift();

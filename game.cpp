@@ -51,9 +51,11 @@ void detect() {
 
 }
 
-std::vector<std::string> addpipe() {
+std::vector<std::string> addpipe(bool attime) {
 
     std::vector<std::string> outvec;
+
+    if(attime == true) {
 
     // no idea how I'll do this
 
@@ -62,6 +64,9 @@ std::vector<std::string> addpipe() {
     // rand for height, 3 tall opening, shift and detect will move and detect it. simple!
 
     // also modulus the tickcount with getTick so that it isn't a tunnel of pipes. maybe every 5 columns?
+
+    // return before end of if statement
+    }
 
     for(int i = 0; i < HEIGHT; i++) {
         outvec.push_back("~~");
