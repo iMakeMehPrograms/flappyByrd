@@ -6,7 +6,7 @@ std::mutex renlock; // mutex so no render weirdness
 
 std::string ans = "";
 
-int cheight = 5;
+int cheight = SHEIGHT;
 
 void inputLoop() {
 
@@ -68,12 +68,13 @@ void shift() {
     }
 
     // update angrid
-    for (int e = 0; e < (int)rengrid.size(); e++)
-    {
-        angrid.push_front(rengrid[e][PWIDTH + 1]);
+    for (int e = 0; e < (int)rengrid.size(); e++) {
+        auto s = rengrid[e][PWIDTH + 1];
+        angrid.push_front(s);
     }
-
-    rengrid[cheight][PWIDTH] = "#>"; // angrid before this because of how detect works
+ 
+    // angrid before this because of how detect works
+    rengrid[cheight][PWIDTH] = "#>";
     rengrid[cheight][PWIDTH - 1] = "~~";
 
 }
@@ -92,30 +93,30 @@ void render() {
         tempout.push_back('\n');
     }
 
+    output.Display(tempout);
+
 }
 
-void generate(bool start) {
+void generate() {
 
     std::string temp = "~~";
 
     for(int i = 0; i < HEIGHT; i++) {
 
-        if(start) {
-        
         rengrid.push_back({});
-
-        }
 
         for(int e = 0; e < WIDTH; e++) {
 
             if(e == PWIDTH) {
-                if(i == SHEIGHT && start) {
+
+                if(i == SHEIGHT) {
+
                     rengrid[i].push_back("#>");
-                } else if (i == cheight) {
-                    rengrid[i].push_back("#>");
+
                 }
-                
+
             } 
+
             rengrid[i].push_back(temp);
 
         }
@@ -157,7 +158,7 @@ void startingAnimation()
 
     log("Game: Loading and generating vector-deque thing\n");
 
-    generate(true); // generate while anim
+    generate(); // generate while anim
 
     log("Game: Generated vector-deque, now waiting for anim join\n");
 
@@ -171,7 +172,7 @@ void startingAnimation()
         "flappyByrd!\n"
         "First use of the cbyrd engine! (made by me)\n"
         "Tips: say \"quit\" (all lowercase and no spaces) to, well... quit\n"
-        "Also don't ever say \"ignore\"\n, it will be well... ignored\n"
+        "Also don't ever say \"ignore\", it will be well... ignored\n"
         "Enter anything into the terminal to start!\n"
     };
 
@@ -182,6 +183,8 @@ void startingAnimation()
     while(ans.compare("ignore") != 0) {} // stall
 
     instate = "game";
+
+    cheight = 5;
 
     //return (duh)
 

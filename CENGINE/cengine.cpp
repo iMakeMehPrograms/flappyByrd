@@ -9,45 +9,34 @@ std::string tempstring;
 std::ofstream debugout("debug.txt", std::ofstream::out | std::ofstream:: trunc);
 
 void ticker(std::vector<void (*)()> funcs) {
-
     for (int e = 0; e < (int)funcs.size(); e++) { // check for null pointers
-
         if(funcs[e] == nullptr) {
-
             std::cerr << "\a Null pointer exception in the ticker function! AUGHHHHHH! CLOSING!\n";
             return;
-
         }
-
     }
 
     tickcount = 0; // reset to 0
 
     while(!end && tickcount < TIMEOUT) {
-
         if ((tickcount % 3000) == 0 && tickcount != 0) {
-
             log("5 minutes have passed, # of minutes: ");
             log(tickcount / 600);
             log("\n");
-
         }
 
-            for (int i = 0; i < (int)funcs.size(); i++)
-            {
-                funcs[i]();
-            }
+        for (int i = 0; i < (int)funcs.size(); i++) {
+            funcs[i]();
+        }
 
         //std::cout << "Tick\n";
         std::this_thread::sleep_for(std::chrono::milliseconds(TICKRATE));
         tickcount++;
-
     }
 
-    if(!end) {
+    if (not end) {
         end = true;
     }
-
 }
 
 int getTick()

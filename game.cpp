@@ -23,6 +23,16 @@ void start()
     
 }
 
+int intClamp(int inp, int min, int max) {
+    if(inp <= min) {
+        return min;
+    } else if(inp >= max) {
+        return max;
+    } else {
+        return inp;
+    }
+}
+
 void physcal() {
 
     if(jframe > 0) { // if jumping
@@ -37,7 +47,7 @@ void physcal() {
 
     }
     cheight += yforce; // manip height (width is constant)
-
+    cheight = intClamp(cheight, 0, HEIGHT - 1); // so no cheight = -1 issues
 }
 
 void detect() {
