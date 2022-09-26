@@ -57,7 +57,7 @@ void shift() {
     // shift rengrid
     std::vector<std::string> pipe = addpipe(false);
 
-    if( (getTick() % 5) == 0) {
+    if( (getTick() % 11) == 0) {
         pipe = addpipe(true);
     }
 
