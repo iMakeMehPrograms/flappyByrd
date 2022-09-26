@@ -2,7 +2,11 @@
 
 int yforce = 0;
 
-int jframe = 0;
+int jframe = 3;
+
+int lheight = SHEIGHT;
+
+std::string air = "  ";
 
 std::string instate = "start";
 
@@ -35,6 +39,8 @@ int intClamp(int inp, int min, int max) {
 
 void physcal() {
 
+    lheight = cheight; // for clearing after the player
+
     if(jframe > 0) { // if jumping
 
         yforce = 1; // add one to yforce
@@ -46,15 +52,19 @@ void physcal() {
         yforce--;
 
     }
-    cheight += yforce; // manip height (width is constant)
+    
+    intClamp(yforce, 0, 1);
+
+    cheight -= yforce; // manip height (width is constant) -= bc cheight needs to be reversed
     cheight = intClamp(cheight, 0, HEIGHT - 1); // so no cheight = -1 issues
 }
 
 void detect() {
 
-    if (cheight <= 0) // check if hit the floor
+    if (cheight >= 9) // check if hit the floor
     {
-        // game over
+        end = true;
+        return;
     }
 
     // detect height vs pipe positions
@@ -79,7 +89,7 @@ std::vector<std::string> addpipe(bool attime) {
     }
 
     for(int i = 0; i < HEIGHT; i++) {
-        outvec.push_back("~~");
+        outvec.push_back(air);
     } 
 
     return outvec;

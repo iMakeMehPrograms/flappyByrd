@@ -4,7 +4,7 @@ Screen output("output.txt");
 
 std::mutex renlock; // mutex so no render weirdness
 
-std::string ans = "";
+char ans = 'i';
 
 int cheight = SHEIGHT;
 
@@ -12,15 +12,14 @@ void inputLoop() {
 
     while(!end) {
 
-        std::cin >> ans;
+        ans = getchar();
         std::cout << "                                              \r" << std::flush;
-        if( (ans.compare("quit")) == 0) { // quit without control c
+        if(ans == 'q') { // quit without control c
             end = true;
         }
         if( (instate.compare("game")) == 0) { // if cin ever returns, then it means that anything was entered, so jump
             jframe = 2;
         }
-
     }
     std::this_thread::sleep_for(std::chrono::milliseconds(TICKRATE * 2)); // give ticker time to end first (two frames if the ticker is caught at a bad time)
 }
@@ -75,7 +74,7 @@ void shift() {
  
     // angrid before this because of how detect works
     rengrid[cheight][PWIDTH] = "#>";
-    rengrid[cheight][PWIDTH - 1] = "~~";
+    rengrid[lheight][PWIDTH - 1] = "--"; // trail
 
 }
 
@@ -92,6 +91,9 @@ void render() {
         }
         tempout.push_back('\n');
     }
+    for(int v = 0; v < WIDTH; v++) {
+        tempout.push_back('=');
+    }
 
     output.Display(tempout);
 
@@ -99,7 +101,7 @@ void render() {
 
 void generate() {
 
-    std::string temp = "~~";
+    std::string temp = air;
 
     for(int i = 0; i < HEIGHT; i++) {
 
@@ -107,18 +109,15 @@ void generate() {
 
         for(int e = 0; e < WIDTH; e++) {
 
-            if(e == PWIDTH) {
+            if (e == PWIDTH && i == SHEIGHT) {
 
-                if(i == SHEIGHT) {
+                rengrid[i].push_back("#>");
 
-                    rengrid[i].push_back("#>");
-
-                }
-
-            } 
-
-            rengrid[i].push_back(temp);
-
+            } else {
+                
+                rengrid[i].push_back(temp);
+                
+            }
         }
     }
 
@@ -170,21 +169,34 @@ void startingAnimation()
 
     std::string temp{
         "flappyByrd!\n"
-        "First use of the cbyrd engine! (made by me)\n"
-        "Tips: say \"quit\" (all lowercase and no spaces) to, well... quit\n"
-        "Also don't ever say \"ignore\", it will be well... ignored\n"
-        "Enter anything into the terminal to start!\n"
+        "First use of the cbyrd engine! (made by me!)\n"
+        "Tips: say \'q\' (all lowercase and no spaces) to, well... quit\n"
+        "Also don't ever say \'i\', it will be ignored\n"
+        "Enter anything into the terminal or press return to jump!\n"
+        "Wait a little for the game to start!\n"
+        "Seconds until start = 6\n"
     };
 
     output.Display(temp);
 
-    ans = "ignore";
+    ans = 'i';
 
-    while(ans.compare("ignore") != 0) {} // stall
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    output.DisplayAdd("Seconds until start = 5\n");
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    output.DisplayAdd("Seconds until start = 4\n");
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    output.DisplayAdd("Seconds until start = 3\n");
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    output.DisplayAdd("Seconds until start = 2\n");
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    output.DisplayAdd("Seconds until start = 1\n");
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    output.DisplayAdd("Starting!\n");
 
     instate = "game";
 
-    cheight = 5;
+    cheight = 0;
 
     //return (duh)
 
