@@ -68,8 +68,8 @@ void shift() {
 
     // update angrid
     for (int e = 0; e < (int)rengrid.size(); e++) {
-        auto s = rengrid[e][PWIDTH + 1];
-        angrid.push_front(s);
+        std::string s = rengrid[e][PWIDTH + 1];
+        angrid.push_back(s);
     }
  
     // angrid before this because of how detect works
@@ -92,6 +92,7 @@ void render() {
         tempout.push_back('\n');
     }
     for(int v = 0; v < WIDTH; v++) {
+        tempout.push_back('=');
         tempout.push_back('=');
     }
 

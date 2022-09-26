@@ -76,6 +76,13 @@ void detect() {
     }
 
     // detect height vs pipe positions
+    for(int i = 0; i < (int)angrid.size(); i++) {
+        if(i == cheight) {
+            if(angrid[i].compare("[]") == 0) {
+                end = true;
+            }
+        }
+    }
 
 }
 
