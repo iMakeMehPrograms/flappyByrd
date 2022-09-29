@@ -26,7 +26,7 @@ int randSet[35] = {4,7,6,3,6,2,5,3,5,4,2,5,2,4,7,4,5,7,2,3,2,4,1,5,4,6,5,4,2,4,6
 
 int incr = 0;
 
-std::deque<std::string> angrid = {};
+std::string angrid = "";
 
 void start()
 {
@@ -76,12 +76,9 @@ void detect() {
     }
 
     // detect height vs pipe positions
-    for(int i = 0; i < (int)angrid.size(); i++) {
-        if(i == cheight) {
-            if(angrid[i].compare("[]") == 0) {
-                end = true;
-            }
-        }
+    if(angrid.compare(block) == 0) {
+        end = true;
+        return;
     }
 
 }

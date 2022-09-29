@@ -67,10 +67,9 @@ void shift() {
     }
 
     // update angrid
-    for (int e = 0; e < (int)rengrid.size(); e++) {
-        std::string s = rengrid[e][PWIDTH + 1];
-        angrid.push_back(s);
-    }
+    angrid = rengrid[cheight][PWIDTH + 1];
+        
+    
  
     // angrid before this because of how detect works
     rengrid[cheight][PWIDTH] = "#>";
